@@ -15,4 +15,8 @@ public interface PostRepository extends JpaRepository<Post, Long>, JpaSpecificat
     List<Post> findByTypeAndModStatus(String type, String modStatus);
 
     long countByModStatus(String modStatus);
+
+    long countByTypeAndModStatus(String type, String modStatus);
+
+    long countByPostStatus(String postStatus);
 }

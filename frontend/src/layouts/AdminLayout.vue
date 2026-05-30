@@ -10,6 +10,7 @@
         <el-menu-item index="/admin/review">
           <el-icon><DocumentChecked /></el-icon>
           <span>待审核</span>
+          <el-badge v-if="pendingCount > 0" :value="pendingCount" class="menu-badge" />
         </el-menu-item>
         <el-menu-item index="/admin/posts">
           <el-icon><List /></el-icon>
@@ -37,14 +38,16 @@
 </template>
 
 <script setup>
-import { computed } from 'vue'
+import { ref, computed, onMounted } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 import { DataAnalysis, DocumentChecked, List, User } from '@element-plus/icons-vue'
 import { useUserStore } from '@/stores/user'
+import { adminApi } from '@/api'
 
 const route = useRoute()
 const router = useRouter()
 const userStore = useUserStore()
+const pendingCount = ref(0)
 
 const titles = {
   '/admin/dashboard': '数据概览',
@@ -55,10 +58,21 @@ const titles = {
 
 const pageTitle = computed(() => titles[route.path] || '管理后台')
 
+async function loadPending() {
+  try {
+    const stats = await adminApi.stats()
+    pendingCount.value = stats.pendingCount || 0
+  } catch {
+    pendingCount.value = 0
+  }
+}
+
 function logout() {
   userStore.logout()
   router.push('/admin/login')
 }
+
+onMounted(loadPending)
 </script>
 
 <style scoped>
@@ -81,4 +95,5 @@ function logout() {
   font-weight: 600;
 }
 .main { background: var(--bg); }
+.menu-badge { margin-left: 8px; }
 </style>

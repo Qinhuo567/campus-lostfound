@@ -43,6 +43,9 @@ public class AdminService {
         stats.put("postCount", postRepository.count());
         stats.put("pendingCount", postRepository.countByModStatus(Constants.MOD_PENDING));
         stats.put("matchCount", matchRecordRepository.countByStatus(Constants.MATCH_ACCEPTED));
+        stats.put("suggestedMatchCount", matchRecordRepository.countByStatus(Constants.MATCH_SUGGESTED));
+        stats.put("lostCount", postRepository.countByTypeAndModStatus(Constants.POST_TYPE_LOST, Constants.MOD_APPROVED));
+        stats.put("foundCount", postRepository.countByTypeAndModStatus(Constants.POST_TYPE_FOUND, Constants.MOD_APPROVED));
         return stats;
     }
 

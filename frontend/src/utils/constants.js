@@ -29,3 +29,10 @@ export function placeholderImage(category) {
   }
   return map[category] || 'https://images.unsplash.com/photo-1558618666-fcd25c85f82e?w=400&h=300&fit=crop'
 }
+
+export const QUICK_LOGIN_ACCOUNTS = [
+  { label: '管理员', username: 'admin', password: 'admin123' },
+  { label: '校园用户', username: 'demo', password: 'demo123' },
+  { label: '小明', username: 'xiaoming', password: 'demo123' },
+  { label: '丽丽', username: 'lili', password: 'demo123' }
+]

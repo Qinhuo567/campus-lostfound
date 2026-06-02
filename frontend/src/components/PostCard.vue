@@ -3,6 +3,7 @@
     <div class="cover">
       <img :src="post.imageUrl || placeholderImage(post.category)" :alt="post.title" />
       <span class="type-tag" :class="post.type">{{ TYPE_LABELS[post.type] }}</span>
+      <span v-if="post.postStatus === 'pending_claim'" class="status-tag">认领中</span>
     </div>
     <div class="body">
       <h3 class="title">{{ post.title }}</h3>
@@ -16,12 +17,15 @@
         <el-tag size="small" :type="POST_STATUS[post.postStatus]?.type">{{ POST_STATUS[post.postStatus]?.label }}</el-tag>
         <span class="category">{{ post.category }}</span>
       </div>
+      <div v-if="post.commentCount" class="extra">
+        <el-icon><ChatDotRound /></el-icon> {{ post.commentCount }} 条评论
+      </div>
     </div>
   </div>
 </template>
 
 <script setup>
-import { Location, Clock } from '@element-plus/icons-vue'
+import { Location, Clock, ChatDotRound } from '@element-plus/icons-vue'
 import { TYPE_LABELS, POST_STATUS, formatTime, placeholderImage } from '@/utils/constants'
 
 defineProps({
@@ -69,6 +73,17 @@ defineProps({
 .type-tag.lost { background: #409eff; }
 .type-tag.found { background: var(--primary); }
 
+.status-tag {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  padding: 2px 8px;
+  border-radius: 4px;
+  font-size: 12px;
+  color: #fff;
+  background: #e6a23c;
+}
+
 .body { padding: 12px 14px; }
 
 .title {
@@ -99,5 +114,14 @@ defineProps({
 .category {
   font-size: 12px;
   color: var(--text-secondary);
+}
+
+.extra {
+  margin-top: 8px;
+  font-size: 12px;
+  color: var(--text-secondary);
+  display: flex;
+  align-items: center;
+  gap: 4px;
 }
 </style>

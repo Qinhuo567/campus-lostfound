@@ -58,3 +58,7 @@ export const uploadApi = {
 export const seedApi = {
   seed: (force = false) => http.post(`/seed?force=${force}`)
 }
+
+export const statsApi = {
+  public: () => http.get('/stats')
+}

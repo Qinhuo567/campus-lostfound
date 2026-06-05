@@ -36,11 +36,25 @@ npm run dev
 
 访问：http://localhost:5173
 
-## 默认账号
+## 预置账号
 
-| 角色 | 用户名 | 密码 |
-|------|--------|------|
-| 管理员 | admin | admin123 |
+| 角色 | 用户名 | 密码 | 说明 |
+|------|--------|------|------|
+| 管理员 | admin | admin123 | 审核、统计、匹配 |
+| 普通用户 | demo | demo123 | 有寻物帖、待处理认领 |
+| 小明 | xiaoming | demo123 | 有寻物帖、评论 |
+| 丽丽 | lili | demo123 | 有招领帖、待审核认领 |
+
+**首次启动**会自动初始化示例数据（8 条帖子、评论、匹配、1 条待审核认领）。
+
+登录页支持**快捷登录**。
+
+## 使用流程
+
+1. 管理员登录 → 待审核 → 通过「U盘」「钥匙」等待审帖
+2. 用户端 → 智能匹配 → 查看寻物/招领配对
+3. 用 demo 登录 → 打开 AirPods 招领帖 → 审核认领申请
+4. 用 xiaoming 登录 → 对校园卡招领帖发起认领
 
 ## 功能模块与分工
 
@@ -51,24 +65,15 @@ npm run dev
 | 田钰天 | 寻物/招领发布、认领、评论、收藏 |
 | 陈奕城 | 智能匹配算法与推荐 |
 
-## 演示数据
+## 示例数据
 
-管理员登录后，在首页点击「生成演示数据」，或调用：
-
-```bash
-curl -X POST http://localhost:8080/api/seed
-```
-
-## Git 分成员提交建议
+首次启动自动初始化。如需手动重置：
 
 ```bash
-git config user.name "陈炫竣"
-git config user.email "your-email@example.com"
-git add backend/ ...
-git commit -m "feat: 初始化 Spring Boot 框架与数据库设计"
+curl -X POST "http://localhost:8080/api/seed?force=true"
 ```
 
-按模块依次切换成员身份提交即可。
+管理员也可在后台「重置示例数据」。
 
 ## 项目结构
 

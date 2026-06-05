@@ -67,7 +67,8 @@
 | 方法 | 路径 | 说明 |
 |------|------|------|
 | GET | /health | 健康检查 |
+| GET | /stats | 公开统计数据 |
 | POST | /upload | 图片上传 |
-| POST | /seed | 演示数据 |
+| POST | /seed | 示例数据（force=true 重置） |
 
 认证方式：请求头 `Authorization: Bearer <token>`
